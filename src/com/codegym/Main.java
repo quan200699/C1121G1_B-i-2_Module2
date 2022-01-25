@@ -1,5 +1,6 @@
 package com.codegym;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -8,6 +9,11 @@ public class Main {
     public static void main(String[] args) {
         int choice = -1;
         BillManagement billManagement = new BillManagement();
+        try {
+            billManagement.readFile("bill.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         do {
             menu();
             choice = scanner.nextInt();
@@ -28,6 +34,27 @@ public class Main {
                     showDeleteBill(billManagement);
                     break;
                 }
+                case 5: {
+                    try {
+                        billManagement.writeToFile("bill.txt");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+                case 6: {
+                    try {
+                        billManagement.readFile("bill.txt");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+            }
+            try {
+                billManagement.writeToFile("bill.txt");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         } while (choice != 0);
     }
@@ -93,6 +120,8 @@ public class Main {
         System.out.println("2. Thêm hóa đơn mới");
         System.out.println("3. Cập nhật hóa đơn");
         System.out.println("4. Xóa hóa dơn");
+        System.out.println("5. Ghi hóa dơn ra file");
+        System.out.println("6. Đọc file");
         System.out.println("0. Thoát");
     }
 }
